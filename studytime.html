@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Pomodoro Timer - TimeFlow</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css" />
+<style>
+  body {
+    background: #FFEDE1;
+    font-family: 'Inter', sans-serif;
+    color: #3a2c2c;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    margin-bottom: 40px;
+    color: #6e5959;
+  }
+  .pomodoro-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+  button {
+    padding: 18px 30px;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    background-color: #897575;
+    color: #FFEDE1;
+    cursor: pointer;
+    font-family: 'Montserrat', sans-serif;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #6e5959;
+  }
+  button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .timer-container {
+    margin-top: 30px;
+    position: relative;
+    display: inline-block;
+  }
+  .timer {
+    font-size: 4rem;
+    font-weight: 700;
+    margin: 20px 0;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* Jam pasir animasi */
+  .hourglass {
+    width: 80px;
+    height: 120px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hourglass-upper, .hourglass-lower {
+    width: 80px;
+    height: 60px;
+    border: 3px solid #6e5959;
+    border-radius: 40px 40px 0 0;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+  }
+  .hourglass-lower {
+    border-radius: 0 0 40px 40px;
+    margin-top: -6px;
+  }
+  .sand-upper, .sand-lower {
+    position: absolute;
+    background: #897575;
+    width: 100%;
+    height: 100%;
+    animation-timing-function: linear;
+  }
+  .sand-upper {
+    top: 0;
+    animation-name: sand-upper;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+  .sand-lower {
+    bottom: 0;
+    height: 0;
+    animation-name: sand-lower;
+    animation-duration: 60s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+  }
+
+  @keyframes sand-upper {
+    0% { height: 100%; }
+    100% { height: 0; }
+  }
+  @keyframes sand-lower {
+    0% { height: 0; }
+    100% { height: 100%; }
+  }
+</style>
+</head>
+<body>
+  <h2>Pilih Durasi Pomodoro</h2>
+  <div class="pomodoro-options">
+    <button onclick="selectPomodoro(15,5)">Fast Learner (15 min)</button>
+    <button onclick="selectPomodoro(25,5)">On Focus (25 min)</button>
+    <button onclick="selectPomodoro(45,10)">Study Harder (45 min)</button>
+  </div>
+
+  <div class="timer-container" style="display:none;" id="timer-container">
+    <div class="hourglass">
+      <div class="hourglass-upper">
+        <div class="sand-upper"></div>
+      </div>
+      <div class="hourglass-lower">
+        <div class="sand-lower"></div>
+      </div>
+    </div>
+    <div class="timer" id="timer-display">00:00</div>
+    <button id="start-pause-btn">Start</button>
+    <button id="reset-btn" disabled>Reset</button>
+    <p id="session-type">Session: </p>
+  </div>
+
+<script>
+  let timerDisplay = document.getElementById('timer-display');
+  let startPauseBtn = document.getElementById('start-pause-btn');
+  let resetBtn = document.getElementById('reset-btn');
+  let timerContainer = document.getElementById('timer-container');
+  let sessionTypeEl = document.getElementById('session-type');
+
+  let pomodoroDuration = 0;
+  let breakDuration = 0;
+  let seconds = 0;
+  let timerInterval = null;
+  let isRunning = false;
+  let isPomodoroSession = true;
+
+  function selectPomodoro(pDuration, bDuration) {
+    pomodoroDuration = pDuration * 60;
+    breakDuration = bDuration * 60;
+    seconds = pomodoroDuration;
+    timerDisplay.textContent = formatTime(seconds);
+    sessionTypeEl.textContent = 'Session: Study';
+    timerContainer.style.display = 'block';
+    isPomodoroSession = true;
+    if(timerInterval) {
+      clearInterval(timerInterval);
+      timerInterval = null;
+    }
+    startPauseBtn.textContent = 'Start';
+    resetBtn.disabled = true;
+  }
+
+  function formatTime(s) {
+    const minutes = Math.floor(s / 60);
+    const secs = s % 60;
+    return `${minutes.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
+  }
+
+  function startTimer() {
+    if(isRunning) { // pause
+      clearInterval(timerInterval);
+      isRunning = false;
+      startPauseBtn.textContent = 'Start';
+    } else {
+      timerInterval = setInterval(() => {
+        seconds--;
+        timerDisplay.textContent = formatTime(seconds);
+        if(seconds <= 0) {
+          clearInterval(timerInterval);
+          isRunning = false;
+          startPauseBtn.textContent = 'Start';
+          resetBtn.disabled = false;
+          // Switch session
+          if(isPomodoroSession) {
+            sessionTypeEl.textContent = 'Session: Break';
+            seconds = breakDuration;
+            isPomodoroSession = false;
+            alert('Waktunya istirahat!');
+          } else {
+            sessionTypeEl.textContent = 'Session: Study';
+            seconds = pomodoroDuration;
+            isPomodoroSession = true;
+            alert('Waktunya belajar kembali!');
+          }
+        }
+      }, 1000);
+      isRunning = true;
+      startPauseBtn.textContent = 'Pause';
+      resetBtn.disabled = true;
+    }
+  }
+
+  startPauseBtn.addEventListener('click', startTimer);
+
+  resetBtn.addEventListener('click', () => {
+    clearInterval(timerInterval);
+    isRunning = false;
+    seconds = isPomodoroSession ? pomodoroDuration : breakDuration;
+    timerDisplay.textContent = formatTime(seconds);
+    startPauseBtn.textContent = 'Start';
+    resetBtn.disabled = true;
+  });
+</script>
+</body>
+</html>

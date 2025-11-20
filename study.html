@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilih Mode Belajar - TimeFlow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="study-options-page">
+        <div class="study-options-container">
+            <h2 class="study-options-title">Choose Your Study Mode</h2>
+            <div class="options-grid">
+                <div class="option-card" onclick="window.location.href='studytime.html'">
+                    <div class="option-icon">👤</div>
+                    <h3 class="option-title">Belajar Sendiri</h3>
+                    <p class="option-desc">Pilih durasi pomodoro yang sesuai dengan kebutuhanmu</p>
+                </div>
+
+                <div class="option-card" onclick="window.location.href='findpeople.html'">
+                    <div class="option-icon">👥</div>
+                    <h3 class="option-title">Belajar dengan Orang Lain</h3>
+                    <p class="option-desc">Cari teman belajar dan tingkatkan motivasi bersama</p>
+                     
+    <script>
+        function showStudyOptionsPage() {
+            document.getElementById('find-people-page').style.display = 'none';
+            document.querySelector('.study-options-page').style.display = 'block';
+        } 
+    </script>
