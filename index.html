@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TimeFlow - Fokus Belajar dengan Teknik Pomodoro</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">TimeFlow</div>
+            <nav class="nav-menu">
+                <a href="#home"><p style="color: rgb(255, 255, 255);">Home</p></a>
+                <a href="#features"><p style="color: rgb(255, 255, 255);">Features</p></a>
+                <a href="#about"><p style="color: rgb(255, 255, 255);">About</p></a>
+                <a href="#profile"><p style="color: rgb(255, 255, 255);">Profile</p></a>
+            </nav>
+            <div class="profile-pic">U</div>
+        </div>
+    </header>
+    
+    <div class="container">
+        <div class="hero">
+            <div class="hero-text">
+                <h1 class="hero-title">WELCOME TO TimeFlow</h1>
+                <p class="hero-subtitle">Focusing doesn’t have to feel heavy — it can be balanced, intuitive, and truly yours.</p>
+            </div>
+            <button class="login-btn" onclick="window.location.href='login.html'">Login</button>
+            <div class="click-instruction">Click to save your progress</div>
+        </div>
+        
+        <div class="scroll-prompt">Scroll down to learn more ↓</div>
+        
+        <div class="features">
+            <h2 class="features-title">Study Rhythm Modes</h2>
+            <div class="features-container">
+                <div class="feature-card">
+                    <h3 class="feature-title">Fast Learner</h3>
+                    <div class="feature-duration">15 min · Break 5 min</div>
+                    <p class="feature-desc">For easy tasks and reading. Perfect for quick review sessions or light study material.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">On Focus</h3>
+                    <div class="feature-duration">25 min · Break 5 min</div>
+                    <p class="feature-desc">Balanced for everyday study. Ideal for regular coursework and assignments.</p>
+                </div>
+                <div class="feature-card">
+                    <h3 class="feature-title">Study Harder</h3>
+                    <div class="feature-duration">45 min · Break 10 min</div>
+                    <p class="feature-desc">For difficult tasks and deep work. Best for complex subjects and major projects.</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-content">
+                <div class="ready-text"><p style="color: #473232;">Ready to Study?</p></div>
+                <button class="start-btn" onclick="window.location.href='study.html'">Start here!</button>
+            </div>
+                <h3 class="info-title">What is TimeFlow?</h3>
+                <p class="info-text">Website ini membahas cara meningkatkan fokus belajar menggunakan teknik Pomodoro—metode manajemen waktu yang membagi sesi belajar menjadi interval singkat yang efektif. Di sini kamu akan menemukan timer belajar, pilihan durasi, belajar dengan user lain, hingga leaderboard yang memberi motivasi agar kegiatan belajar menyenangkan tetap terarah dan produktif.</p>
+            <div class="leaderboard">
+                <h3 class="leaderboard-title">Leaderboard</h3>
+                <div class="leaderboard-item">
+                    <span class="rank">1.</span>
+                    <span class="user-name">Alexandra</span>
+                    <span class="points">1,245 pts</span>
+                </div>
+                <div class="leaderboard-item">
+                    <span class="rank">2.</span>
+                    <span class="user-name">Benjamin</span>
+                    <span class="points">1,180 pts</span>
+                </div>
+                <div class="leaderboard-item">
+                    <span class="rank">3.</span>
+                    <span class="user-name">Chloe</span>
+                    <span class="points">1,050 pts</span>
+                </div>
+                <div class="leaderboard-item">
+                    <span class="rank">4.</span>
+                    <span class="user-name">Daniel</span>
+                    <span class="points">980 pts</span>
+                </div>
+                <div class="leaderboard-item">
+                    <span class="rank">5.</span>
+                    <span class="user-name">Emma</span>
+                    <span class="points">920 pts</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+   <footer class="footer">
+    <div class="footer-left">
+        <img src="logowebsite 2.png" alt="Logo" class="footer-logo">
+
+        <p class="footer-text">
+            Created for the 2025 Festika Competition.<br>
+            Designed & Developed by Giantsany Nur Rohma Hidayati and Martina Ekya Rahmat
+        </p>
+
+        <p class="footer-subtext">
+            Made to support better study habits for students everywhere.
+        </p>
+    </div>
+
+    <div class="footer-center">
+        <p class="footer-menu">
+            Home · Features · About · Contact
+        </p>
+    </div>
+
+    <div class="footer-right">
+        <div class="social-icons">
+            <img src="X.com - Iconly Pro.png" alt="X" class="social-icon">
+            <img src="Instagram - Iconly Pro.png" alt="Instagram" class="social-icon">
+        </div>
+        <p class="social-caption">find us in our social media</p>
+    </div>
+</footer>
+
+    <!-- Timer Page -->
+<div id="timer-page" style="display: none;">
+    <div class="timer-container">
+        <h2 class="timer-title">Study Timer</h2>
+        <div class="hourglass">
+            <div class="sand"></div>
+        </div>
+        <div class="timer-display" id="timer-display">25:00</div>
+        <div class="timer-controls">
+            <button class="timer-btn" onclick="startTimer()">Start</button>
+            <button class="timer-btn" onclick="pauseTimer()">Pause</button>
+            <button class="timer-btn reset" onclick="resetTimer()">Reset</button>
+        </div>
+    </div>
+</div>
+    <!-- Decorative Elements -->
+    <div class="decoration-1"></div>
+    <div class="decoration-2"></div>
+    <div class="decoration-3"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
